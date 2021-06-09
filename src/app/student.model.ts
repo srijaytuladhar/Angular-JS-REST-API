@@ -1,6 +1,10 @@
 export class Student {
-    id: number = 0;
+    id: string = "";
     name: string = "";
-    age: number = 0;
+    age: string = "";
     email: string = "";
+
+    
+
+   
 }

@@ -9,6 +9,10 @@ import { Student } from './student.model';
 })
 export class AppComponent implements OnInit{
   
+  student: Student = new Student;
+
+ 
+
   students$: Student[] = [];
 
   constructor(private dataService: DataService) {
@@ -25,6 +29,40 @@ export class AppComponent implements OnInit{
     console.log("button will work soon....")
   }
   
+  onDelete(student: Student) {
+    // console.log(student)
+    this.dataService.deleteStudent(student)
+      .subscribe(
+        () => (this.students$ = this.students$.filter(s => s.id!= student.id))
+      );
 
-  
+    console.log("student with id: " + student.id + " deleted!!");
+  }
+
+
+
+  addStudent() {
+
+
+    let newStudent: Student = new Student();
+
+    if(!this.student.id) {
+      alert('ID Cannot be empty!!');
+      return;
+    }
+
+    
+    newStudent = this.student;
+
+    this.dataService.addStudent(newStudent)
+    .subscribe(data => (this.students$.push(newStudent)));
+
+    console.log(this.student);
+
+    this.student = new Student();
+    
+    
+  }
+
+   
 }

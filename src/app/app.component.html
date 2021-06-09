@@ -1,6 +1,20 @@
 <div style="text-align: center;">
   <h1>{{title}}</h1>
+
+
+  <form class="add-form" (ngSubmit)="addStudent()">
+    <input type="text" placeholder="Student ID" name="id" [(ngModel)]="student.id"/><br>
+    <input type="text" placeholder="Student Name" name="name" [(ngModel)]="student.name"/><br>
+    <input type="text" placeholder="Student Age" name="age" [(ngModel)]="student.age"/><br>
+    <input type="text" placeholder="Student Email" name="email" [(ngModel)]="student.email"/><br>
+    <input type="submit" class="btn btn-success " value="Add Student">
+  </form>
+
+  
 </div>
+<br><br>
+
+
 <div *ngFor = 'let student of students$'>
   <details>
     <summary>Student ID: {{student.id}}</summary>
@@ -8,7 +22,6 @@
     <b>Age:</b> {{student.age}}<br>
     <b>Email:</b> {{student.email}}<br><br>
 
-    
     
     <div class="input-group" style="width: 40%">
       <div class="input-group-prepend">
@@ -29,7 +42,7 @@
       <input type="text" class="form-control col-xs-4" placeholder="Student Email" [(ngModel)]="student.email" >
     </div>
     <div  style="width: 40%">
-      <button (click)="save()" class="btn btn-success form-control">Update Student with id: {{student.id}}</button>
+      <button (click)="onDelete(student)" class="btn btn-danger form-control">Delete Student with id: {{student.id}}</button>
     </div>
   
   <br>

@@ -1,6 +1,13 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Student } from './student.model';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -8,17 +15,27 @@ import { Student } from './student.model';
 export class DataService {
   apiUrl = "http://localhost:8080/students";
 
-  constructor(private _http:HttpClient) { 
+  
+
+  constructor(private http:HttpClient) { 
 
   }
 
   getStudents() {
-    return this._http.get<Student[]>(this.apiUrl);
+    return this.http.get<Student[]>(this.apiUrl);
+    
   }
 
 
-  deleteStudent(){
+  deleteStudent(student: Student): Observable<Student> {
+    const url = `${this.apiUrl}/${student.id}`;
+    return this.http.delete<Student>(url);
+    
+  }
 
+  addStudent(student: Student): Observable<Student> {
+    // console.log(student);
+    return this.http.post<Student>(this.apiUrl, student, httpOptions);
   }
 
 }
