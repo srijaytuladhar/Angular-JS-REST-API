@@ -13,7 +13,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class DataService {
-  apiUrl = "http://localhost:8080/students";
+  apiUrl = "http://localhost:8080/students/";
 
   
 
@@ -28,7 +28,7 @@ export class DataService {
 
 
   deleteStudent(student: Student): Observable<Student> {
-    const url = `${this.apiUrl}/${student.id}`;
+    const url = `${this.apiUrl}${student.id}`;
     return this.http.delete<Student>(url);
     
   }
@@ -36,6 +36,12 @@ export class DataService {
   addStudent(student: Student): Observable<Student> {
     // console.log(student);
     return this.http.post<Student>(this.apiUrl, student, httpOptions);
+  }
+
+  updateStudent(id: string, student: Student): Observable<Student> {
+    //const url = `${this.apiUrl}${student.id}`;
+    return this.http.put<Student>(this.apiUrl + id, student, httpOptions);
+
   }
 
 }

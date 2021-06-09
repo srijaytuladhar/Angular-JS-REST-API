@@ -64,5 +64,18 @@ export class AppComponent implements OnInit{
     
   }
 
+  updateStudent(id: string, student: Student) {
+
+    let updateStudent: Student = new Student();
+
+    updateStudent = student;
+    // console.log(id);
+    // console.log(updateStudent);
+    console.log("Student with id: " +id+ " updated successfully!!")
+
+    this.dataService.updateStudent(id, updateStudent)
+      .subscribe(data => (this.students$.push(updateStudent)));
+  }
+
    
 }

@@ -21,7 +21,6 @@
     <b>Name:</b> {{student.name}}<br>
     <b>Age:</b> {{student.age}}<br>
     <b>Email:</b> {{student.email}}<br><br>
-
     
     <div class="input-group" style="width: 40%">
       <div class="input-group-prepend">
@@ -42,6 +41,7 @@
       <input type="text" class="form-control col-xs-4" placeholder="Student Email" [(ngModel)]="student.email" >
     </div>
     <div  style="width: 40%">
+      <button (click)="updateStudent(student.id, student)" class="btn btn-info form-control">Update Student with id: {{student.id}}</button>
       <button (click)="onDelete(student)" class="btn btn-danger form-control">Delete Student with id: {{student.id}}</button>
     </div>
   
