@@ -9,9 +9,9 @@ import { Topic, Topics } from './topic.model';
 })
 export class AppComponent implements OnInit{
   
-  topic: Topic = new Topic();
-  topics: Topic[] = [];
-  topics$: Topics = new Topics();
+  topic: Topic = new Topic;
+  topics$: Topic[] = [];
+ 
   message: string = "";
 
 
@@ -22,11 +22,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     return this.dataService.getTopics()
-      .subscribe(data => {
-          this.topics$ = data
-
-          console.log(this.topics$);
-        });
+      .subscribe(data => this.topics$ = data);
   }
 
 
@@ -38,11 +34,11 @@ export class AppComponent implements OnInit{
   onDelete(topic: Topic) {
     this.dataService.deleteTopic(topic)
       .subscribe(
-        () => (this.topics = this.topics.filter(s => s.id!= topic.id))
+        () => (this.topics$ = this.topics$.filter(s => s.id!= topic.id))
       );
-
-    console.log("Topic with id: " + topic.id + " deleted!!");
-    this.message = "Topic with id: " +topic.id+ " deleted successfully!!";
+        
+    //console.log("Topic with id: " + topic.id + " deleted!!");
+   // this.message = "Topic with id: " +topic.id+ " deleted successfully!!";
   }
   
 
@@ -61,7 +57,7 @@ export class AppComponent implements OnInit{
     newTopic = this.topic;
 
     this.dataService.addTopic(newTopic)
-    .subscribe(data => (this.topics.push(newTopic)));
+    .subscribe(data => (this.topics$.push(newTopic)));
 
     console.log(this.topic);
 
@@ -80,7 +76,7 @@ export class AppComponent implements OnInit{
     console.log("Topic with id: " +id+ " updated successfully!!")
 
     this.dataService.updateTopic(id, updateTopic)
-      .subscribe(data => (this.topics.push(updateTopic)));
+      .subscribe(data => (this.topics$.push(updateTopic)));
 
     this.message = "Topic with id: " +id+ " updated successfully!!";
   }

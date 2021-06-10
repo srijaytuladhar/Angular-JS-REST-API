@@ -22,7 +22,7 @@ export class DataService {
   }
 
   getTopics() {
-    return this.http.get<Topics>(this.apiUrl);
+    return this.http.get<Topic[]>(this.apiUrl);
     
   }
 
