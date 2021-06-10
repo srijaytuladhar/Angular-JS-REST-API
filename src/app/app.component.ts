@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DataService } from './data.service';
-import { Student } from './student.model';
+import { Topic, Topics } from './topic.model';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +9,11 @@ import { Student } from './student.model';
 })
 export class AppComponent implements OnInit{
   
-  student: Student = new Student;
+  topic: Topic = new Topic();
+  topics: Topic[] = [];
+  topics$: Topics = new Topics();
+  message: string = "";
 
- 
-
-  students$: Student[] = [];
 
   constructor(private dataService: DataService) {
 
@@ -21,7 +21,12 @@ export class AppComponent implements OnInit{
   title: string = "REST API";
 
   ngOnInit() {
-    return this.dataService.getStudents().subscribe(data => this.students$ = data);
+    return this.dataService.getTopics()
+      .subscribe(data => {
+          this.topics$ = data
+
+          console.log(this.topics$);
+        });
   }
 
 
@@ -29,53 +34,56 @@ export class AppComponent implements OnInit{
     console.log("button will work soon....")
   }
   
-  onDelete(student: Student) {
-    // console.log(student)
-    this.dataService.deleteStudent(student)
+  
+  onDelete(topic: Topic) {
+    this.dataService.deleteTopic(topic)
       .subscribe(
-        () => (this.students$ = this.students$.filter(s => s.id!= student.id))
+        () => (this.topics = this.topics.filter(s => s.id!= topic.id))
       );
 
-    console.log("student with id: " + student.id + " deleted!!");
+    console.log("Topic with id: " + topic.id + " deleted!!");
+    this.message = "Topic with id: " +topic.id+ " deleted successfully!!";
   }
+  
+
+  
+  addTopic() {
 
 
+    let newTopic: Topic = new Topic();
 
-  addStudent() {
-
-
-    let newStudent: Student = new Student();
-
-    if(!this.student.id) {
+    if(!this.topic.id) {
       alert('ID Cannot be empty!!');
       return;
     }
 
     
-    newStudent = this.student;
+    newTopic = this.topic;
 
-    this.dataService.addStudent(newStudent)
-    .subscribe(data => (this.students$.push(newStudent)));
+    this.dataService.addTopic(newTopic)
+    .subscribe(data => (this.topics.push(newTopic)));
 
-    console.log(this.student);
+    console.log(this.topic);
 
-    this.student = new Student();
+    this.topic = new Topic();
     
+    this.message = "Topic added successfully!!";
     
   }
 
-  updateStudent(id: string, student: Student) {
+  updateTopic(id: string, topic: Topic) {
 
-    let updateStudent: Student = new Student();
+    let updateTopic: Topic = new Topic();
 
-    updateStudent = student;
-    // console.log(id);
-    // console.log(updateStudent);
-    console.log("Student with id: " +id+ " updated successfully!!")
+    
+    updateTopic = topic;
+    console.log("Topic with id: " +id+ " updated successfully!!")
 
-    this.dataService.updateStudent(id, updateStudent)
-      .subscribe(data => (this.students$.push(updateStudent)));
+    this.dataService.updateTopic(id, updateTopic)
+      .subscribe(data => (this.topics.push(updateTopic)));
+
+    this.message = "Topic with id: " +id+ " updated successfully!!";
   }
+  
 
-   
 }

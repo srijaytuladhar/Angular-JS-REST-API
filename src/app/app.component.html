@@ -1,50 +1,57 @@
-<div style="text-align: center;">
+
+<div >
+  <br>
+  
+  <div class="alert alert-primary" role="alert">
+    {{ message }}
+  </div>
   <h1>{{title}}</h1>
-
-
-  <form class="add-form" (ngSubmit)="addStudent()">
-    <input type="text" placeholder="Student ID" name="id" [(ngModel)]="student.id"/><br>
-    <input type="text" placeholder="Student Name" name="name" [(ngModel)]="student.name"/><br>
-    <input type="text" placeholder="Student Age" name="age" [(ngModel)]="student.age"/><br>
-    <input type="text" placeholder="Student Email" name="email" [(ngModel)]="student.email"/><br>
-    <input type="submit" class="btn btn-success " value="Add Student">
-  </form>
-
+  <div style="display: flex; justify-content: center;">
+  <div style="width: 70%;">
+    <form class="add-form form-control" (ngSubmit)="addTopic()">
+      <input class="form-control" type="text" placeholder="Topic ID" name="id" [(ngModel)]="topic.id"/>
+      <input class="form-control" type="text" placeholder="Topic Name" name="name" [(ngModel)]="topic.name"/>
+      <input class="form-control" type="text" placeholder="Topic Description" name="description" [(ngModel)]="topic.description"/><br>
+      <input type="submit" class="btn btn-success form-control" value="Add Topic">
+    </form>
+  </div>
+</div>
   
 </div>
 <br><br>
 
 
-<div *ngFor = 'let student of students$'>
+<div *ngFor = 'let topic of topics$.topics'>
   <details>
-    <summary>Student ID: {{student.id}}</summary>
-    <b>Name:</b> {{student.name}}<br>
-    <b>Age:</b> {{student.age}}<br>
-    <b>Email:</b> {{student.email}}<br><br>
+    <summary>Topic ID: {{topic.id}}</summary>
     
-    <div class="input-group" style="width: 40%">
+    <div hidden>  
+      <b>Name:</b> {{topic.name}}<br>
+      <b>Description:</b> {{topic.description}}<br><br>
+    </div> 
+
+
+<div style="padding: 0px 15% 0px 15%;">
+
+    <div class="input-group" >
       <div class="input-group-prepend">
-        <div class="input-group-text">Student Name</div>
+        <div class="input-group-text">Topic Name</div>
       </div>
-      <input type="text" class="form-control col-xs-4" placeholder="Student Name" [(ngModel)]="student.name" >
+      <input type="text" class="form-control col-xs-4" placeholder="Topic Name" [(ngModel)]="topic.name" >
     </div>
-    <div class="input-group" style="width: 40%">
+    
+    <div class="input-group" >
       <div class="input-group-prepend">
-        <div class="input-group-text">Student Age</div>
+        <div class="input-group-text">Topic Email</div>
       </div>
-      <input type="text" class="form-control col-xs-4" placeholder="Student Age" [(ngModel)]="student.age" >
+      <input type="text" class="form-control col-xs-4" placeholder="Topic Email" [(ngModel)]="topic.description" >
     </div>
-    <div class="input-group" style="width: 40%">
-      <div class="input-group-prepend">
-        <div class="input-group-text">Student Email</div>
-      </div>
-      <input type="text" class="form-control col-xs-4" placeholder="Student Email" [(ngModel)]="student.email" >
+    
+    <div  >
+      <button (click)="updateTopic(topic.id, topic)" class="btn btn-info form-control">Update Topic with id: {{topic.id}}</button>
+      <button (click)="onDelete(topic)" class="btn btn-danger form-control">Delete Topic with id: {{topic.id}}</button>
     </div>
-    <div  style="width: 40%">
-      <button (click)="updateStudent(student.id, student)" class="btn btn-info form-control">Update Student with id: {{student.id}}</button>
-      <button (click)="onDelete(student)" class="btn btn-danger form-control">Delete Student with id: {{student.id}}</button>
-    </div>
-  
+  </div>
   <br>
   </details>
 

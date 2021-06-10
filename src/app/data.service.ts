@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Student } from './student.model';
+import { Topic, Topics } from './topic.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -13,7 +13,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class DataService {
-  apiUrl = "http://localhost:8080/students/";
+  apiUrl = "http://localhost:9000/topics/";
 
   
 
@@ -21,26 +21,26 @@ export class DataService {
 
   }
 
-  getStudents() {
-    return this.http.get<Student[]>(this.apiUrl);
+  getTopics() {
+    return this.http.get<Topics>(this.apiUrl);
     
   }
 
 
-  deleteStudent(student: Student): Observable<Student> {
-    const url = `${this.apiUrl}${student.id}`;
-    return this.http.delete<Student>(url);
+  deleteTopic(topic: Topic): Observable<Topic> {
+    const url = `${this.apiUrl}${topic.id}`;
+    return this.http.delete<Topic>(url);
     
   }
 
-  addStudent(student: Student): Observable<Student> {
+  addTopic(topic: Topic): Observable<Topic> {
     // console.log(student);
-    return this.http.post<Student>(this.apiUrl, student, httpOptions);
+    return this.http.post<Topic>(this.apiUrl, topic, httpOptions);
   }
 
-  updateStudent(id: string, student: Student): Observable<Student> {
+  updateTopic(id: string, topic: Topic): Observable<Topic> {
     //const url = `${this.apiUrl}${student.id}`;
-    return this.http.put<Student>(this.apiUrl + id, student, httpOptions);
+    return this.http.put<Topic>(this.apiUrl + id, topic, httpOptions);
 
   }
 
