@@ -22,13 +22,6 @@ export class AppComponent implements OnInit{
   title: string = "REST API";
 
   ngOnInit() {
-
-    
-
-    
-    
-    // descending
-
     
     console.log(this.newarr);
 
