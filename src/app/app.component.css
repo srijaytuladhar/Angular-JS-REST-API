@@ -73,3 +73,14 @@ details p {
   margin: 0 0 1rem;
   padding-top: 1rem;
 }
+#toast-container > div {
+  opacity:1;
+}
+
+
+
+
+
+
+
+

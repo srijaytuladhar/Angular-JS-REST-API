@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DataService } from './data.service';
 import { Topic, Topics } from './topic.model';
-import { DOCUMENT } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -15,14 +15,14 @@ export class AppComponent implements OnInit{
  
   message: string = "";
   newarr = this.topics$.sort((a, b) => b.id - a.id);
+ 
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private toastr: ToastrService) {
 
   }
   title: string = "REST API";
 
   ngOnInit() {
-    
     console.log(this.newarr);
 
     return this.dataService.getTopics()
@@ -41,9 +41,14 @@ export class AppComponent implements OnInit{
         
     //console.log("Topic with id: " + topic.id + " deleted!!");
     this.message = "Topic with id: " +topic.id+ " deleted successfully!!";
-
+      
+    this.toastr.warning( 'Topic deleted!!'); 
+    setTimeout(function(){
+      window.location.reload();
+    }, 2000);
     //alert("Topic with id: " +topic.id+ " deleted successfully!!");
-   // window.location.reload();
+    //window.location.reload();
+    
   }
   
 
@@ -68,11 +73,15 @@ export class AppComponent implements OnInit{
 
     console.log(this.topic);
 
-    //this.topic = new Topic();
-    
+    this.topic = new Topic();
+
     this.message = "Topic added successfully!!";
-    alert('Topic record added successfully!!');
-    window.location.reload();
+    //alert('Topic record added successfully!!');
+    //window.location.reload();
+    this.toastr.success('Topic added!!'); 
+    setTimeout(function(){
+      window.location.reload();
+    }, 2000);
   }
 
   updateTopic( topic: Topic) {
@@ -89,8 +98,12 @@ export class AppComponent implements OnInit{
 
     this.message = "Topic with id: " +topic.id+ " updated successfully!!";
     console.log(topic);
-    alert("Topic with id: " +topic.id+ " updated successfully!!");
-    window.location.reload();
+
+
+    this.toastr.info("Topic with id: " +topic.id+ " updated successfully!!");
+    setTimeout(function(){
+      window.location.reload();
+    }, 2000);
   }
   
 
