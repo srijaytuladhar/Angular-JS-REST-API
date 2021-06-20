@@ -20,6 +20,7 @@ export class AppComponent implements OnInit{
   constructor(private dataService: DataService, private toastr: ToastrService) {
 
   }
+  // title
   title: string = "REST API";
 
   ngOnInit() {
@@ -29,11 +30,6 @@ export class AppComponent implements OnInit{
       .subscribe(data => this.topics$ = data);
   }
 
-
-  save() : void {
-    console.log("button will work soon....")
-  }
-  
   
   onDelete(topic: Topic) {
     console.log("button clicked!!");
@@ -52,7 +48,7 @@ export class AppComponent implements OnInit{
   }
   
 
-  
+  // adding topic
   addTopic() {
 
 
@@ -79,14 +75,9 @@ export class AppComponent implements OnInit{
         window.location.reload();
       }, 2000);
     }
-
-
-
-
-    
-    
   }
 
+  // updating topic
   updateTopic( topic: Topic) {
 
     let updateTopic: Topic = new Topic();
