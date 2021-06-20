@@ -58,30 +58,33 @@ export class AppComponent implements OnInit{
 
     let newTopic: Topic = new Topic();
 
-    /*
-    if(!this.topic.id) {
-      alert('ID Cannot be empty!!');
-      return;
-    }*/
+    if(!this.topic.name) {
+      this.toastr.warning('Topic cannot be empty!!'); 
+    }
+    else {
+      newTopic = this.topic;
+
+      this.dataService.addTopic(newTopic)
+      .subscribe(data => (this.topics$.push(newTopic)));
+
+      console.log(this.topic);
+
+      this.topic = new Topic();
+
+      this.message = "Topic added successfully!!";
+      //alert('Topic record added successfully!!');
+      //window.location.reload();
+      this.toastr.success('Topic added!!'); 
+      setTimeout(function(){
+        window.location.reload();
+      }, 2000);
+    }
+
+
 
 
     
-    newTopic = this.topic;
-
-    this.dataService.addTopic(newTopic)
-    .subscribe(data => (this.topics$.push(newTopic)));
-
-    console.log(this.topic);
-
-    this.topic = new Topic();
-
-    this.message = "Topic added successfully!!";
-    //alert('Topic record added successfully!!');
-    //window.location.reload();
-    this.toastr.success('Topic added!!'); 
-    setTimeout(function(){
-      window.location.reload();
-    }, 2000);
+    
   }
 
   updateTopic( topic: Topic) {
